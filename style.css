@@ -1,0 +1,76 @@
+body{
+    background-color: #007bff;
+}
+header, footer{
+    color: white;
+}
+
+
+main {
+  max-width: 100%;
+  margin: 10px auto;
+  padding: 8px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 per row */
+  grid-gap: 12px;
+}
+
+section {
+  background: white;
+  border-radius: 10px;
+  padding: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  font-size: 1.05em; /* slightly larger overall */
+}
+
+h2 {
+  color: #007bff;
+  font-size: 1.2em;
+  margin-bottom: 6px;
+}
+
+.problem {
+  margin: 2px 0;
+  padding: 4px 5px;
+  border-radius: 4px;
+  background: #f1f1f1;
+  font-size: 1.2em; /* bigger numbers */
+  /* text-align: center; */
+}
+
+.problems-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px 15px;
+}
+
+.answer {
+  color: #28a745;
+  font-weight: bold;
+  display: none;
+  font-size: 1em;
+}
+
+.show-answers-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 8px;
+  margin-top: 5px;
+  border-radius: 4px;
+  font-size: 0.85em;
+  cursor: pointer;
+}
+
+.show-answers-btn:hover {
+  background: #0056b3;
+}
+
+/* Green refresh button */
+.show-answers-btn.refresh {
+  background: #28a745;
+}
+
+.show-answers-btn.refresh:hover {
+  background: #1e7e34;
+}
