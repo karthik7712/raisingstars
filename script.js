@@ -12,68 +12,61 @@ function getRandomInt(min, max) {
 function generateNumbersForOperation(opType, index) {
   let nums = [];
 
-    if (opType === "add") {
+  if (opType === "add") {
     let count = getRandomInt(3, 5); // min 3, max 5 numbers
     let digitPools = [];
 
     if (count >= 3) {
-        digitPools.push([10000, 99999]); // 5-digit
-        digitPools.push([1000, 9999]);   // 4-digit
-        digitPools.push([10, 99]);       // 2-digit
+      digitPools.push([10000, 99999]); // 5-digit
+      digitPools.push([1000, 9999]);   // 4-digit
+      digitPools.push([10, 99]);       // 2-digit
     }
     if (count >= 4) {
-        digitPools.push([100, 999]);     // 3-digit
+      digitPools.push([100, 999]);     // 3-digit
     }
     if (count === 5) {
-        digitPools.push([1, 9]);         // 1-digit
+      digitPools.push([1, 9]);         // 1-digit
     }
 
-    // Randomize the order so the positions vary
+    // Randomize order
     digitPools.sort(() => Math.random() - 0.5);
 
     digitPools.forEach(([min, max]) => {
-        nums.push(getRandomInt(min, max));
+      nums.push(getRandomInt(min, max));
     });
-    }
+  }
 
-    if (opType === "sub") {
+  if (opType === "sub") {
     let a = getRandomInt(1, 100000);
     let b = getRandomInt(1, 100000);
 
-    // Ensure a is greater than b
     if (b > a) {
-        [a, b] = [b, a];
+      [a, b] = [b, a];
     }
-
     nums = [a, b];
-    }
-
-
+  }
 
   if (opType === "mul") {
     let a = getRandomInt(1, 100000);
     let b;
-    if (index < 8) {
+    if (index < 5) {
+      // first 5 → smaller multipliers
       b = getRandomInt(2, 20);
     } else {
-      b = getRandomInt(10, 99);
+      // next 5 → larger multipliers
+      b = getRandomInt(21, 99);
     }
     nums = [a, b];
   }
 
   if (opType === "div") {
     let dividend = getRandomInt(100, 999999); // 3–6 digits
-    // let divisor = getRandomInt(20, 99); // 2–3 digits
+    let divisor;
     if (index < 5) {
-      divisor = getRandomInt(2, 10);
-    } 
-    else if (index > 8){
-      divisor = getRandomInt(21, 99);
+      divisor = getRandomInt(2, 20); // first 5 → smaller divisors
+    } else {
+      divisor = getRandomInt(21, 99); // next 5 → larger divisors
     }
-    else{
-        divisor = getRandomInt(11,20);
-    }
-
     nums = [dividend, divisor];
   }
 
@@ -83,14 +76,11 @@ function generateNumbersForOperation(opType, index) {
 function calculateAnswer(nums, opType) {
   if (opType === "add") {
     return nums.reduce((a, b) => a + b);
-  } 
-  else if (opType === "sub") {
+  } else if (opType === "sub") {
     return nums.reduce((a, b) => a - b);
-  } 
-  else if (opType === "mul") {
+  } else if (opType === "mul") {
     return nums.reduce((a, b) => a * b);
-  } 
-  else if (opType === "div") {
+  } else if (opType === "div") {
     let quotient = Math.floor(nums[0] / nums[1]);
     let remainder = nums[0] % nums[1];
     return { Quotient: quotient, Remainder: remainder };
@@ -117,7 +107,6 @@ function generateProblems() {
         const nums = generateNumbersForOperation(op.type, i);
         let ans = calculateAnswer(nums, op.type);
 
-        // Format answer for display
         let ansHTML;
         if (typeof ans === "object" && ans !== null) {
           ansHTML = `Q: ${ans.Quotient}, R: ${ans.Remainder}`;
@@ -163,4 +152,3 @@ function generateProblems() {
 }
 
 generateProblems();
-
